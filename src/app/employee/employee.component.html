@@ -1,0 +1,56 @@
+<h1 id="tableLabel">Employee List Details</h1>
+
+<p>This component demonstrates fetching data from the server.</p>
+
+<div class="container"> 
+  <form class="search-emp col-md-6"  #registerForm="ngForm" (ngSubmit)="employeeSearchList()"> 
+      <div class="form-group"> 
+          <input class="form-control" type="text" name="search"  [(ngModel)]="model.username" autocomplete="off" placeholder="&#61442;  Start searching for a employee by first name or last name">                 
+      </div> 
+      <div class="form-group"> 
+        <input type="text" autocomplete="off" bsDaterangepicker
+          [bsConfig]="{ isAnimated: true, dateInputFormat: 'YYYY-MM-DD' }"
+          id="EmploymentDate" name="EmploymentDate" placeholder="Employment start and end date" 
+          (bsValueChange)="dateRangeCreated($event)"
+          [(ngModel)]="model.EmploymentDate"
+          class="form-control" />
+      </div>
+      <div class="form-group"> 
+          <button class="btn btn-success btn-lg float-right" 
+                  type="submit"> 
+               Search employee
+          </button> 
+      </div> 
+  </form> 
+</div> 
+
+<p *ngIf="!employeelist"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="employeelist">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Job title</th>
+      <th>Age</th>
+      <th>Gender</th>
+      <th>DOB</th>
+      <th>Email</th>
+      <th>Employment start</th>
+      <th>Employment end</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let employee of employeelist">
+      <td>{{ employee.First_name }}</td>
+      <td>{{ employee.Last_name }}</td>
+      <td>{{ employee.Job_title }}</td>
+      <td>{{ employee.Age }}</td>
+      <td>{{ employee.Gender }}</td>
+      <td>{{ employee.DateOfBirth | date: 'dd/MM/yyyy'}}</td>
+      <td>{{ employee.Email }}</td>
+      <td>{{ employee.employment_start_date | date: 'dd/MM/yyyy'}}</td>
+      <td>{{ employee.employment_end_date | date: 'dd/MM/yyyy' }}</td>
+    </tr>
+  </tbody>
+</table>
